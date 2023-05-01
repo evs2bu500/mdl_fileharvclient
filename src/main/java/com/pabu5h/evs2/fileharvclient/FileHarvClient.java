@@ -1,5 +1,6 @@
 package com.pabu5h.evs2.fileharvclient;
 
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -21,6 +22,12 @@ public class FileHarvClient {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    private final Logger logger;
+
+    public FileHarvClient(Logger logger) {
+        this.logger = logger;
+    }
 
     public void uploadFile(File file, String folder) throws Exception {
         if(folder == null){
