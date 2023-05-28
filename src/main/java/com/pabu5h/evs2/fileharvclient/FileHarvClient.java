@@ -59,6 +59,13 @@ public class FileHarvClient {
         String endpoint = fileHarvPath + fileHarvEptUpload;
         try {
             File logsDir = new File(srcFolder);
+            File[] lf = logsDir.listFiles();
+            if(lf != null){
+                logger.info("list of files in logsDir: {}", logsDir.getAbsoluteFile());
+                for(File f : lf){
+                    logger.info("File: {}", f.getAbsoluteFile());
+                }
+            }
             for (File logFile : logsDir.listFiles()) {
                 if(logger != null) {
                     logger.info("Moving log file: {} from Dir: {}", logFile.getName(), logsDir.getAbsoluteFile());
