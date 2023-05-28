@@ -11,6 +11,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
+import java.util.Objects;
 
 @Service
 public class FileHarvClient {
@@ -59,14 +60,14 @@ public class FileHarvClient {
         String endpoint = fileHarvPath + fileHarvEptUpload;
         try {
             File logsDir = new File(srcFolder);
-            File[] lf = logsDir.listFiles();
-            if(lf != null){
-                logger.info("list of files in logsDir: {}", logsDir.getAbsoluteFile());
-                for(File f : lf){
-                    logger.info("File: {}", f.getAbsoluteFile());
-                }
-            }
-            for (File logFile : logsDir.listFiles()) {
+//            File[] lf = logsDir.listFiles();
+//            if(lf != null){
+//                logger.info("list of files in logsDir: {}", logsDir.getAbsoluteFile());
+//                for(File f : lf){
+//                    logger.info("File: {}", f.getAbsoluteFile());
+//                }
+//            }
+            for (File logFile : Objects.requireNonNull(logsDir.listFiles())) {
                 if(logger != null) {
                     logger.info("Moving log file: {} from Dir: {}", logFile.getName(), logsDir.getAbsoluteFile());
                 }
