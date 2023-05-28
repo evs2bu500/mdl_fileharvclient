@@ -71,11 +71,16 @@ public class FileHarvClient {
                         }
                     }
                     uploadFile(logFile, desFolder);
+                    if(logger != null) {
+                        logger.info("Uploaded log file: {} to desDir: {}", logFile.getName(), desFolder);
+                    }
                     logFile.delete();
                 }
             }
         } catch (Exception e) {
-//            logger.error("Error in moving log files! : {}", e);
+            if(logger != null) {
+                logger.info("Error in moving log files! : {}", e.getMessage());
+            }
         }
     }
 
