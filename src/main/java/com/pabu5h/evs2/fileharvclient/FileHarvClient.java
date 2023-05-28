@@ -61,7 +61,7 @@ public class FileHarvClient {
             File logsDir = new File(srcFolder);
             for (File logFile : logsDir.listFiles()) {
                 if(logger != null) {
-                    logger.info("Moving log file: {}", logFile.getName());
+                    logger.info("Moving log file: {} from Dir: {}", logFile.getName(), logsDir.getName());
                 }
                 String fileName = logFile.getName();
                 if (fileName.endsWith(".log")) {
