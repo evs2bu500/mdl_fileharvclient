@@ -1,6 +1,6 @@
 package com.pabu5h.evs2.fileharvclient;
 
-import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -12,9 +12,11 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 @Service
 public class FileHarvClient {
+    private final Logger logger = Logger.getLogger(FileHarvClient.class.getName());
 
     @Value("${fileharv.path}")
     private String fileHarvPath;
@@ -24,12 +26,9 @@ public class FileHarvClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    private final Logger logger;
-
-    public FileHarvClient(Logger logger) {
-        this.logger = logger;
-    }
-
+//    public FileHarvClient(Logger logger) {
+//        this.logger = logger;
+//    }
     public void uploadFile(File file, String folder) throws Exception {
         if(folder == null){
             throw new Exception("FileHarvClient: folder name cannot be null");
@@ -69,7 +68,7 @@ public class FileHarvClient {
 //            }
             for (File logFile : Objects.requireNonNull(logsDir.listFiles())) {
                 if(logger != null) {
-                    logger.info("Moving log file: {} from Dir: {}", logFile.getName(), logsDir.getAbsoluteFile());
+                    logger.info("logFile: " + logFile.getName());
                 }
                 String fileName = logFile.getName();
                 if (fileName.endsWith(".log")) {
@@ -80,14 +79,14 @@ public class FileHarvClient {
                     }
                     uploadFile(logFile, desFolder);
                     if(logger != null) {
-                        logger.info("Uploaded log file: {} to desDir: {}", logFile.getName(), desFolder);
+                        logger.info("Uploaded log file: " + logFile.getName() + " to " + desFolder);
                     }
                     logFile.delete();
                 }
             }
         } catch (Exception e) {
             if(logger != null) {
-                logger.info("Error in moving log files! : {}", e.getMessage());
+                logger.info("Error in moving log files! : " + e.getMessage());
             }
         }
     }
